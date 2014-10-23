@@ -106,14 +106,19 @@ require([
 						//theString += property + ": " + feature.attributes[property] + "<br/>";
 						if (array.indexOf(appConfig.instrumentsOutDateFields, property) != -1) {
 							
-							require(["dojo/date/locale"], function(locale){
-								var _dStr = locale.format(new Date(feature.attributes[property]),{
-									selector: "date",
-									formatLength: "short"
-								});
-								theString += "<td>" + _dStr + "</td>";
+							if (feature.attributes[property]) {
+								require(["dojo/date/locale"], function(locale){
+									var _dStr = locale.format(new Date(feature.attributes[property] + (new Date().getTimezoneOffset() * 60000)),{
+										selector: "date",
+										formatLength: "short"
+									});
+									theString += "<td>" + _dStr + "</td>";
+									headerString += "<th>" +property+ "</th>";
+								})
+							} else {
+								theString += "<td>" + "" + "</td>";
 								headerString += "<th>" +property+ "</th>";
-							})
+							}
 
 						} else {
 							theString += "<td>" + feature.attributes[property] + "</td>";

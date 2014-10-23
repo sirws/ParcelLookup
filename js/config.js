@@ -9,7 +9,7 @@ var appConfig = {
   landParcelIdFieldName: "Parcel_ID",
   parcelID: "",
   improvementsOutFieldNames: ["Extension","Category","ImpvID","ImpType","EffStatus","SqFeet","Value","YearBuilt","EffYrBuilt","Grade","Condition","PINStatus"],
-  instrumentsOutFieldNames: ["InstrumentID","Instrument_Number","Instrument_Num","Instrument_Date","Instrument_Type","Notes","Image_ID","LastDateImagePrinted"],
+  instrumentsOutFieldNames: ["Instrument_Number","Instrument_Date","Instrument_Type","Notes"],
   instrumentsOutDateFields: ["Instrument_Date"],
   landOutFieldNames: []
 };
