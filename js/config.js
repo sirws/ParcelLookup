@@ -6,10 +6,10 @@ var appConfig = {
   parcelIdFieldName: "TextString",
   instrumentsParcelIdFieldName: "Pin",
   improvementsParcelIdFieldName: "Parcel_ID",
-  landParcelIdFieldName: "Parcel_ID",
+  landParcelIdFieldName: "PIN",
   parcelID: "",
   improvementsOutFieldNames: ["Extension","Category","ImpvID","ImpType","EffStatus","SqFeet","Value","YearBuilt","EffYrBuilt","Grade","Condition","PINStatus"],
   instrumentsOutFieldNames: ["Instrument_Number","Instrument_Date","Instrument_Type","Notes"],
   instrumentsOutDateFields: ["Instrument_Date"],
-  landOutFieldNames: []
+  landOutFieldNames: ["TypeDescr","LDAcres","SqrFeet","Value","PropClsDescr"]
 };

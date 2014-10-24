@@ -57,6 +57,7 @@ require([
 		registry.byId("instrumentsPane").set("content", "Retrieving Data...");
 		var improvementsQT = new QueryTask(appConfig.improvementsLayer);
 		var instrumentsQT = new QueryTask(appConfig.instrumentsLayer);
+		var landQT = new QueryTask(appConfig.landLayer);
 		var improvementsQuery = new Query();
 			improvementsQuery.returnGeometry = false;
 			improvementsQuery.outFields = appConfig.improvementsOutFieldNames;
@@ -68,8 +69,14 @@ require([
 			instrumentsQuery.outFields = appConfig.instrumentsOutFieldNames;
 			instrumentsQuery.where = appConfig.instrumentsParcelIdFieldName + " = '" + appConfig.parcelID + "'";
 		var q2 = instrumentsQT.execute(instrumentsQuery);
-			
-		all([q1, q2]).then(function(results){
+		
+		var landQuery = new Query();
+			landQuery.returnGeometry = false;
+			landQuery.outFields = appConfig.landOutFieldNames;
+			landQuery.where = appConfig.landParcelIdFieldName + " = '" + appConfig.parcelID + "'";
+		var q3 = landQT.execute(landQuery);
+
+		all([q1, q2, q3]).then(function(results){
 		// results will be an Array
 			console.log(results[0]);
 			var theString = "";
@@ -130,7 +137,30 @@ require([
 			  });
 			});
 			registry.byId("instrumentsPane").set("content", "<table>" + headerString + theString + "</table>");
+			
+			console.log(results[2]);
+			var theString = "";
+			var headerString = "";
+			require(["dojo/_base/array"], function(array){
+			  array.forEach(results[2].features, function(feature, i){
+				console.debug(feature.attributes, "at index", i);
+				theString += "<tr>";
+				headerString = "";
+				for (var property in feature.attributes) {
+					if (feature.attributes.hasOwnProperty(property)) {
+						console.log(property);
+						//theString += property + ": " + feature.attributes[property] + "<br/>";
+						theString += "<td>" + feature.attributes[property] + "</td>";
+						headerString += "<th>" +property+ "</th>";
+					}
+				}
+				theString+="</tr>";
+			  });
+			});
+			registry.byId("landPane").set("content", "<table>" + headerString + theString + "</table>");
 		});
+		
+		
 		
 	} else {
 		dom.byId("parcelNumber").innerHTML = "You must provide a PIN";
